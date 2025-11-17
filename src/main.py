@@ -32,8 +32,13 @@ async def check_github():
             return
 
     if result:
-        old_sha, new_sha = result
-        await channel.send(f"New commit!\nOld: `{old_sha}`\nNew: `{new_sha}`")
+        await channel.send(
+            f"**New commit detected!**\n"
+            f"SHA: `{result['sha']}`\n"
+            f"Committer: **{result['committer']}**\n"
+            f"Message: {result['message']}\n"
+            f"Time (WIB): {result['time_wib']}"
+        )
     else:
         await channel.send("no commit")
 

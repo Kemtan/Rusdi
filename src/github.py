@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import aiohttp
 import sqlite3
 import config
@@ -19,12 +20,11 @@ def get_state(key: str):
 
 def set_state(key: str, value: str):
     conn.execute(
-        "INSERT INTO state(key, value) VALUES(?, ?)"
+        "INSERT INTO state(key, value) VALUES(?, ?) "
         "ON CONFLICT(key) DO UPDATE SET value = excluded.value",
         (key, value),
     )
-
-    conn. commit()
+    conn.commit()
 
 # Fetch latest commit from Github
 async def fetch_latest_commit(GITHUB_OWNER, GITHUB_REPO):
@@ -43,23 +43,44 @@ async def fetch_latest_commit(GITHUB_OWNER, GITHUB_REPO):
                 return None
             data = await resp.json()
     
-    return data[0]["sha"] if data else None
+    if isinstance(data, list) and len(data) > 0:
+        commit = data[0]
+
+        sha = commit["sha"]
+        committer = commit["commit"]["committer"]["name"]
+        message = commit["commit"]["message"]
+        utc_time = commit["commit"]["committer"]["date"]
+
+        # convert UTC to WIB (UTC+7)
+        dt_utc = datetime.strptime(utc_time, "%Y-%m-%dT%H:%M:%SZ")
+        dt_wib = dt_utc + timedelta(hours=7)
+        time_wib = dt_wib.strftime("%Y-%m-%d %H:%M:%S")
+
+        return {
+            "sha": sha,
+            "committer": committer,
+            "message": message,
+            "time": time_wib,
+        }
+
+    return None
 
 async def check_new_commit():
-
-    latest_sha = await fetch_latest_commit(config.GITHUB_OWNER, config.GITHUB_REPO)
-    if latest_sha is None:
+    latest = await fetch_latest_commit(config.GITHUB_OWNER, config.GITHUB_REPO)
+    if latest is None:
         return None
 
+    latest_sha = latest["sha"]
     stored_sha = get_state("last_commit_sha")
 
+    # first run
     if stored_sha is None:
         set_state("last_commit_sha", latest_sha)
         return None
     
+    # new commit detected
     if latest_sha != stored_sha:
-        old = stored_sha
         set_state("last_commit_sha", latest_sha)
-        return (old, latest_sha)
+        return latest
     
     return None
