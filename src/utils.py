@@ -1,4 +1,6 @@
 from discord.ext import commands
+import time
+from discord.utils import utcnow
 
 def setup(bot):
     #!test
@@ -9,5 +11,8 @@ def setup(bot):
     #!ping
     @bot.command()
     async def ping(ctx):
-        latency = round(bot.latency * 1000)
-        await ctx.send(f"pong ({latency} ms)")
+        before = utcnow()
+        msg = await ctx.send("pong...")
+        after = utcnow()
+        ms = int((after - before).total_seconds() * 1000)
+        await msg.edit(content=f"pong ({ms} ms)")
