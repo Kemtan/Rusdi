@@ -60,7 +60,7 @@ async def fetch_latest_commit(GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH):
             "sha": sha,
             "committer": committer,
             "message": message,
-            "time": time_wib,
+            "time_wib": time_wib,
         }
 
     return None
