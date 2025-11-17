@@ -1,4 +1,8 @@
 # Todo
+- [x] Base bot
+- [x] Utils (ping, etc)
+- [ ] github commits, issues, and PR logger (WIP)
+- [ ] reddit post sender 
 
 ## Goal
 - Bot runs 24/7
