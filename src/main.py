@@ -23,7 +23,7 @@ async def check_github():
     if channel is None:
         try:
             channel = await bot.fetch_channel(config.CHANNEL_ID)
-            print("Fetched channel from API:", channel, type(channel))
+            # print("Fetched channel from API:", channel, type(channel))
         except discord.Forbidden:
             print("ERROR: Bot has no permission to view/send in this channel")
             return
@@ -39,8 +39,8 @@ async def check_github():
             f"Message: {result['message']}\n"
             f"Time (WIB): {result['time_wib']}"
         )
-    else:
-        await channel.send("no commit")
+    # else:
+    #     await channel.send("no commit")
 
 @bot.event
 async def on_ready():
