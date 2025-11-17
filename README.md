@@ -1,0 +1,2 @@
+# Rusdi
+personal discord bot
