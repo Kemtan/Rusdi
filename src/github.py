@@ -36,6 +36,9 @@ async def fetch_latest_commit(GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH):
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:144.0) Gecko/20100101 Firefox/144.0",
     }
 
+    if GITHUB_TOKEN:
+        headers["authorization"] = f"Bearer {config.GITHUB_TOKEN}"
+
     async with aiohttp.ClientSession() as session:
         async with session.get(url, headers=headers) as resp:
             if resp.status != 200:
