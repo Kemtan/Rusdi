@@ -27,9 +27,9 @@ def set_state(key: str, value: str):
     conn.commit()
 
 # Fetch latest commit from Github
-async def fetch_latest_commit(GITHUB_OWNER, GITHUB_REPO):
+async def fetch_latest_commit(GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH):
     
-    url = f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/commits"
+    url = f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/commits?sha={GITHUB_BRANCH}"
 
     headers = {
         "Accept": "application/vnd.github+json",
@@ -66,7 +66,7 @@ async def fetch_latest_commit(GITHUB_OWNER, GITHUB_REPO):
     return None
 
 async def check_new_commit():
-    latest = await fetch_latest_commit(config.GITHUB_OWNER, config.GITHUB_REPO)
+    latest = await fetch_latest_commit(config.GITHUB_OWNER, config.GITHUB_REPO, config.GITHUB_BRANCH)
     if latest is None:
         return None
 
