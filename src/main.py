@@ -33,15 +33,15 @@ async def check_github():
 
     if result:
         embed = discord.Embed(
-            title="New Commit Detected!",
+            title=f"New Commit in {result['owner']}/{result['repo']}",
             color=0x2ECC71
         )
 
-        embed.add_field(name="SHA", value=f"`{result['sha']}`", inline=False)
+        embed.add_field(name="SHA", value=f"[`{result['sha']}`]({result['link']})", inline=False)
         embed.add_field(name="Committer", value=result["committer"], inline=False)
         embed.add_field(name="Message", value=result["message"], inline=False)
         embed.add_field(name="Time (WIB)", value=result["time_wib"], inline=False)
-        
+
         embed.set_thumbnail(url=result["avatar"])
 
         await channel.send(embed=embed)

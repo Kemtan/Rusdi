@@ -66,6 +66,9 @@ async def fetch_latest_commit(GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH):
             "message": message,
             "time_wib": time_wib,
             "avatar": avatar,
+            "repo": config.GITHUB_REPO,
+            "owner": config.GITHUB_OWNER,
+            "link": f"https://github.com/{config.GITHUB_OWNER}/{config.GITHUB_REPO}/commit/{sha}"
         }
 
     return None
