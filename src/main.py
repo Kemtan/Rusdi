@@ -15,7 +15,6 @@ utils.setup(bot)
 @tasks.loop(minutes=1)
 async def check_github():
     result = await github.check_new_commit()
-    events = await github.check_new_events(config.GITHUB_USER)
 
     # cached channel
     channel = bot.get_channel(config.CHANNEL_ID)
@@ -43,11 +42,16 @@ async def check_github():
     # else:
     #     await channel.send("no commit")
 
-    if events:
-        for ev in events:
-            await channel.send(ev["text"])
-    else:
-        await channel.send("no events")
+@bot.command(name="events")
+async def ghevents(ctx):
+    events = await github.check_new_events(config.GITHUB_USER)
+
+    if not events:
+        await ctx.send("No new events since last check.")
+        return
+
+    for ev in events:
+        await ctx.send(ev["text"])
 
 @bot.event
 async def on_ready():
