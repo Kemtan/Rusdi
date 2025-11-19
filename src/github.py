@@ -53,6 +53,7 @@ async def fetch_latest_commit(GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH):
         committer = commit["commit"]["committer"]["name"]
         message = commit["commit"]["message"]
         utc_time = commit["commit"]["committer"]["date"]
+        avatar = commit["author"]["avatar_url"]
 
         # convert UTC to WIB (UTC+7)
         dt_utc = datetime.strptime(utc_time, "%Y-%m-%dT%H:%M:%SZ")
@@ -64,6 +65,7 @@ async def fetch_latest_commit(GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH):
             "committer": committer,
             "message": message,
             "time_wib": time_wib,
+            "avatar": avatar,
         }
 
     return None
