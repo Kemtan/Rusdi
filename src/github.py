@@ -88,6 +88,7 @@ async def check_new_commit():
     
     return None
 
+#-------------------------------------------------------------------------
 async def fetch_user_events(username:str):
 
     url = f"https://api.github.com/users/{username}/events/public"
