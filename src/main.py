@@ -43,8 +43,11 @@ async def check_github():
     # else:
     #     await channel.send("no commit")
 
-    for ev in events:
-        await channel.send(ev["text"])
+    if events:
+        for ev in events:
+            await channel.send(ev["text"])
+    else:
+        await channel.send("no events")
 
 @bot.event
 async def on_ready():
