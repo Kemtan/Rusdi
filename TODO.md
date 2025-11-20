@@ -6,11 +6,14 @@
     - [x] log every commit in specific repo
     - [ ] log every commit in specific user
     - [ ] check for every commit in N timespan without it getting skipped
-  - [ ] check for pull request (pull request event)
-  - [ ] check for branch creation (create event)
-  - [ ] check for starring branch (watch event)
+  - [ ] check for events
+    - [x] check for pull request (pull request event)
+    - [x] check for branch creation (create event)
+    - [x] check for starring branch (watch event)
+    - [ ] update to per user cmd (!events [username])
   - [ ] !repo [user] cmd for listing user repo by hitting /users/{user}/repos
 - [ ] reddit post sender 
+- [ ] implement jomok personality when tagging @Rusdi in a server via gemini api
 - [ ] run bot 24/7 in server
-- [ ] setup .env.example
+- [x] setup .env.example
 - [ ] clean and squash project commits
