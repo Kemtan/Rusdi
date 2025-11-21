@@ -172,10 +172,11 @@ async def check_new_events(username:str):
     if not events:
         return []
     
-    last_id = get_state("last_event_id")
+    state_key = f"last_event_id_{username}"
+    last_id = get_state(state_key)
 
     if last_id is None:
-        set_state("last_event_id", events[0]["id"])
+        set_state(state_key, events[0]["id"])
         return []
     
     new_raw = []
