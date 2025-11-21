@@ -49,15 +49,20 @@ async def check_github():
     #     await channel.send("no commit")
 
 @bot.command(name="events")
-async def ghevents(ctx):
-    events = await github.check_new_events(config.GITHUB_USER)
+async def ghevents(ctx, username: str = None):
 
-    if not events:
-        await ctx.send("No new events since last check.")
-        return
+    if username is None:
+        await ctx.send(f"no used specified. please run !events [user]")
 
-    for ev in events:
-        await ctx.send(ev["text"])
+    if username:
+        events = await github.check_new_events(username)
+    
+        if not events:
+            await ctx.send(f"No new events for **{username}**.")
+            return
+    
+        for ev in events:
+            await ctx.send(ev["text"])
 
 @bot.event
 async def on_ready():
