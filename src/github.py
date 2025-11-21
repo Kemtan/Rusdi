@@ -26,7 +26,7 @@ def set_state(key: str, value: str):
     )
     conn.commit()
 
-# Fetch latest commit from Github
+# --------------- Repo Commits ---------------
 async def fetch_latest_commit(GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH):
     
     url = f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/commits?sha={GITHUB_BRANCH}"
@@ -93,7 +93,7 @@ async def check_new_commit():
     
     return None
 
-#-------------------------------------------------------------------------
+# --------------- User Events ---------------
 async def fetch_user_events(username:str):
 
     url = f"https://api.github.com/users/{username}/events/public"
