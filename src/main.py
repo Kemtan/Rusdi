@@ -54,14 +54,15 @@ async def ghevents(ctx, username: str = None):
     if username is None:
         await ctx.send(f"no used specified. please run !events [user]")
 
-    events = await github.check_new_events(username)
-
-    if not events:
-        await ctx.send(f"No new events for **{username}**.")
-        return
-
-    for ev in events:
-        await ctx.send(ev["text"])
+    if username:
+        events = await github.check_new_events(username)
+    
+        if not events:
+            await ctx.send(f"No new events for **{username}**.")
+            return
+    
+        for ev in events:
+            await ctx.send(ev["text"])
 
 @bot.event
 async def on_ready():
