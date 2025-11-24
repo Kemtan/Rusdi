@@ -25,6 +25,7 @@
   - [ ] !repo [user] cmd for listing user repo by hitting /users/{user}/repos
 - [ ] reddit post sender 
 - [ ] implement jomok personality when tagging @Rusdi in a server via gemini api
+- [ ] todo note
 - [ ] run bot 24/7 in server
   - [x] setup tailscale
   - [ ] setup systemd.services
