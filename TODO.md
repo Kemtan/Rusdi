@@ -26,8 +26,8 @@
 - [ ] reddit post sender 
 - [ ] implement jomok personality when tagging @Rusdi in a server via gemini api
 - [ ] todo note
-- [ ] run bot 24/7 in server
+- [x] run bot 24/7 in server
   - [x] setup tailscale
-  - [ ] setup systemd.services
+  - [x] setup systemd.services
 - [x] setup .env.example
 - [ ] clean and squash project commits
