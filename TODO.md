@@ -25,7 +25,7 @@
     - [x] fix events printing old events instead of latest one
   - [ ] !repo [user] cmd for listing user repo by hitting /users/{user}/repos
 - [ ] reddit post sender 
-- [ ] implement jomok personality when tagging @Rusdi in a server via gemini api
+- [x] implement jomok personality when tagging @Rusdi in a server via gemini api
 - [ ] todo note
 - [ ] play music
 - [ ] store/find doksli
