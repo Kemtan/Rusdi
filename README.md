@@ -5,6 +5,7 @@ personal discord bot
 - Log all github events to discord (webhook)
 - aiohttp webhook server
 - ping
+- gemini response
 - TBA. (see TODO.md)
 
 # Project Structure
@@ -74,7 +75,7 @@ python3 src/webhook.py
 (screenshots examples here)
 
 # Discord Output
-(image)
+<img width="425" height="1071" alt="image" src="https://github.com/user-attachments/assets/66349d4d-6926-490e-8df9-40ba365eb802" />
 
 # Security Notes
 - keep tokens private
