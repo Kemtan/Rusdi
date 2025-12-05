@@ -3,8 +3,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DISCORD_TOKEN  = os.getenv("DISCORD_TOKEN")
-CHANNEL_ID     = os.getenv("DISCORD_CHANNEL_ID")
+DISCORD_TOKEN       = os.getenv("DISCORD_TOKEN")
+CHANNEL_ID          = os.getenv("DISCORD_CHANNEL_ID")
 DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 
 GITHUB_TOKEN   = os.getenv("GITHUB_TOKEN")
