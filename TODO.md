@@ -1,6 +1,7 @@
 # Todo
 - [x] Base bot
 - [x] Utils (ping, etc)
+- [ ] Webhook
 - [ ] Github (commits, issues, and PR logger) (WIP)
   - [ ] check for commit
     - [x] log every commit in specific repo
