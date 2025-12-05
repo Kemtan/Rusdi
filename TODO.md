@@ -1,15 +1,14 @@
 # Todo
 - [x] Base bot
 - [x] Utils (ping, etc)
-- [ ] Webhook
-- [ ] Github (commits, issues, and PR logger) (WIP)
-  - [ ] check for commit
+- [x] Webhook
+- [x] Github (commits, issues, and PR logger) (WIP)
+  - [x] check for commit
     - [x] log every commit in specific repo
-    - [ ] log every commit in specific user
-    - [ ] check for every commit in N timespan without it getting skipped
-    - [ ] add cmd to store selected repo
-    - [ ] automaticly select latest changes in the repo
-  - [x] check for events
+    - [x] log every commit in specific user
+    - [x] check for every commit in N timespan without it getting skipped
+    - [x] add cmd to store selected repo (webhook)
+  - [x] check for events (currently using webhook, might remove this feature later)
     - [x] check for pull request (pull request event)
     - [x] check for branch creation (create event)
     - [x] check for starring branch (watch event)
