@@ -26,16 +26,34 @@ async def github_webhook(request: web.Request):
         return web.Response(status=400, text="bad payload\n")
 
     event = request.headers.get("X-GitHub-Event", "unknown")
-    print("== Incoming GitHub webhook ==", event)
+    print("Webhook Event:", event)
 
-    if event != "push":
-        return web.Response(text="ignored\n")
+    embed = None
 
-    embed = github.format_push_embed(body)
-    if embed is None:
-        return web.Response(text="invalid push\n")
+    if event == "push":
+        embed = github.format_push_embed(body)
 
-    await send_embed_as_bot(embed)
+    elif event == "issues":
+        embed = github.format_issues_embed(body)
+
+    elif event == "pull_request":
+        embed = github.format_pr_embed(body)
+
+    elif event == "create":
+        embed = github.format_create_embed(body)
+
+    elif event == "delete":
+        embed = github.format_delete_embed(body)
+
+    elif event == "watch":
+        embed = github.format_watch_embed(body)
+
+    else:
+        return web.Response(text=f"ignored event: {event}\n")
+
+    if embed:
+        await send_embed_as_bot(embed)
+
     return web.Response(text="OK\n")
 
 async def ok(request):

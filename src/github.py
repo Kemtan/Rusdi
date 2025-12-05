@@ -87,6 +87,85 @@ def format_push_embed(payload: dict) -> dict | None:
 
     return embed
 
+def format_issues_embed(payload: dict) -> dict:
+    repo = payload["repository"]["full_name"]
+    action = payload["action"]
+    issue = payload["issue"]
+    title = issue["title"]
+    url = issue["html_url"]
+    user = issue["user"]["login"]
+
+    embed = {
+        "title": f"Issue {action} in {repo}",
+        "color": 0x3498DB,
+        "fields": [
+            {"name": "Title", "value": f"[{title}]({url})", "inline": False},
+            {"name": "User", "value": user, "inline": False},
+        ]
+    }
+    return embed
+
+def format_pr_embed(payload: dict) -> dict:
+    repo = payload["repository"]["full_name"]
+    action = payload["action"]
+    pr = payload["pull_request"]
+    title = pr["title"]
+    url = pr["html_url"]
+    user = pr["user"]["login"]
+
+    embed = {
+        "title": f"Pull Request {action} in {repo}",
+        "color": 0x9B59B6,
+        "fields": [
+            {"name": "Title", "value": f"[{title}]({url})", "inline": False},
+            {"name": "User", "value": user, "inline": False},
+        ]
+    }
+    return embed
+
+def format_create_embed(payload: dict) -> dict:
+    repo = payload["repository"]["full_name"]
+    ref = payload["ref"]
+    ref_type = payload["ref_type"]  # "branch" or "tag"
+
+    embed = {
+        "title": f"Created {ref_type} in {repo}",
+        "color": 0x2ECC71,
+        "fields": [
+            {"name": ref_type.title(), "value": ref, "inline": False},
+        ]
+    }
+    return embed
+
+def format_delete_embed(payload: dict) -> dict:
+    repo = payload["repository"]["full_name"]
+    ref = payload["ref"]
+    ref_type = payload["ref_type"]
+
+    embed = {
+        "title": f"Deleted {ref_type} in {repo}",
+        "color": 0xE74C3C,
+        "fields": [
+            {"name": ref_type.title(), "value": ref, "inline": False},
+        ]
+    }
+    return embed
+
+def format_watch_embed(payload: dict) -> dict:
+    repo = payload["repository"]["full_name"]
+    user = payload["sender"]["login"]
+    avatar = payload["sender"]["avatar_url"]
+
+    embed = {
+        "title": f"⭐ Starred {repo}",
+        "color": 0xF1C40F,
+        "fields": [
+            {"name": "User", "value": user, "inline": False},
+        ],
+        "thumbnail": {"url": avatar}
+    }
+    return embed
+
 # --------------- User Events ---------------
 async def fetch_user_events(username:str):
 
