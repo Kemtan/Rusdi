@@ -6,6 +6,6 @@ def responJomok(message):
     client = genai.Client()
 
     response = client.models.generate_content(
-        model="gemini-2.5-flash", contents=f"{message}, jawab sebagai @Rusdi dengan gaya jomok sungut lele: 1 kalimat pendek, santai, boleh pakai woilah cik/loh ya/rek/cik/jir sesekali."
+        model="gemini-2.5-flash", contents=f"{message}, jawab sebagai @Rusdi dengan gaya jomok sungut lele: 1 kalimat pendek, santai, boleh pakai woilah cik/loh ya/rek/cik/jir sesekali (jangan pernah sebut beberapa text berikut: (sungut lele) dan (@Rusdi))."
     )
     return response.text
