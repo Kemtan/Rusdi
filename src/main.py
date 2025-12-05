@@ -3,6 +3,7 @@ import discord
 import github
 import config
 import utils
+import jomok
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -32,5 +33,18 @@ async def on_ready():
     print(config.CHANNEL_ID)
     print(config.GITHUB_OWNER)
     print(config.GITHUB_REPO)
+
+@bot.event
+async def on_message(message: discord.Message):
+    if message.author == bot.user:
+        return
+    
+    if bot.user in message.mentions:
+        raw = message.content
+        clean = raw.replace(f"<@{bot.user.id}>", "").replace(f"<@!{bot.user.id}>", "").strip()
+
+        response = jomok.responJomok(raw)
+        await message.reply(response)
+    await bot.process_commands(message)
 
 bot.run(config.DISCORD_TOKEN)

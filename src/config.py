@@ -10,3 +10,5 @@ GITHUB_TOKEN   = os.getenv("GITHUB_TOKEN")
 GITHUB_OWNER   = os.getenv("GITHUB_OWNERS")
 GITHUB_REPO    = os.getenv("GITHUB_REPOS")
 GITHUB_BRANCH  = os.getenv("GITHUB_BRANCH")
+
+GEMINI_API_KEY  = os.getenv("GEMINI_API_KEY")
