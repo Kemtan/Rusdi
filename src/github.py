@@ -190,6 +190,6 @@ async def check_new_events(username:str):
     
     new_raw.reverse()
 
-    set_state("last_event_id", events[0]["id"])
+    set_state(state_key, events[0]["id"])
 
     return [_format_event(ev) for ev in new_raw]

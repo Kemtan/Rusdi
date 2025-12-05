@@ -22,7 +22,7 @@
             ```
     - [ ] AND add available arg (commit, starred, deleted) to display more info
     - [ ] Run every 3 hours
-    - [ ] fix events printing old events instead of latest one
+    - [x] fix events printing old events instead of latest one
   - [ ] !repo [user] cmd for listing user repo by hitting /users/{user}/repos
 - [ ] reddit post sender 
 - [ ] implement jomok personality when tagging @Rusdi in a server via gemini api
