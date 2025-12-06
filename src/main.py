@@ -65,4 +65,11 @@ async def setup_hook():
 async def on_socket_response(msg):
     await wavelink.Pool.on_socket_response(msg)
 
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandError):
+        await ctx.send(f"❌ {error}")
+    else:
+        raise error
+
 bot.run(config.DISCORD_TOKEN)
