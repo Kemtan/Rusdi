@@ -4,9 +4,11 @@ import github
 import config
 import utils
 import jomok
+import wavelink
 
 intents = discord.Intents.default()
 intents.message_content = True
+intents.voice_states = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
@@ -46,5 +48,21 @@ async def on_message(message: discord.Message):
         response = jomok.responJomok(raw)
         await message.reply(response)
     await bot.process_commands(message)
+
+@bot.event
+async def setup_hook():
+    nodes = [
+        wavelink.Node(
+            uri="http://127.0.0.1:2333",   # or your Tailscale IP
+            password=config.WAVELINK_PASS
+        )
+    ]
+
+    await wavelink.Pool.connect(nodes=nodes, client=bot)
+    await bot.load_extension("music")
+
+@bot.event
+async def on_socket_response(msg):
+    await wavelink.Pool.on_socket_response(msg)
 
 bot.run(config.DISCORD_TOKEN)
