@@ -6,20 +6,25 @@ personal discord bot
 - aiohttp webhook server
 - ping
 - gemini response
+- music player
 - TBA. (see TODO.md)
 
 # Project Structure
 ```├── LICENSE
-├── README.md
-├── requirements.txt
-├── src
-│   ├── config.py
-│   ├── github.py
-│   ├── main.py
-│   ├── __pycache__
-│   ├── utils.py
-│   └── webhook.py
-└── TODO.md
+├── lavalink
+│   ├── application.yml
+│   ├── Lavalink.jar
+│   └── plugins
+└── Rusdi
+    ├── API.md
+    ├── config
+    ├── github.db
+    ├── LICENSE
+    ├── README.md
+    ├── requirements.txt
+    ├── src
+    ├── TODO.md
+    └── venv
 ```
 
 # Requirements
