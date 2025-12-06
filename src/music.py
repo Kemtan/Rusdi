@@ -130,5 +130,21 @@ class Music(commands.Cog):
 
         await ctx.send("🔀 Queue shuffled.")
 
+    @commands.command(name="remove")
+    async def remove_track(self, ctx, index: int):
+        queue = self.queues.get(ctx.guild.id, [])
+
+        if not queue:
+            return await ctx.send("Queue is empty.")
+
+        # Convert 1-based index → 0-based
+        index -= 1
+
+        if index < 0 or index >= len(queue):
+            return await ctx.send("Invalid index.")
+
+        removed = queue.pop(index)
+        await ctx.send(f"🗑️ Removed: **{removed.title}**")
+
 async def setup(bot: commands.Bot):
     await bot.add_cog(Music(bot))
