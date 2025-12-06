@@ -27,10 +27,11 @@
 - [ ] reddit post sender 
 - [x] implement jomok personality when tagging @Rusdi in a server via gemini api
 - [ ] todo note
-- [ ] play music
+- [x] play music
 - [ ] store/find doksli
 - [x] run bot 24/7 in server
   - [x] setup tailscale
   - [x] setup systemd.services
 - [x] setup .env.example
+- [ ] setup run.sh
 - [ ] clean and squash project commits
