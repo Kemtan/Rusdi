@@ -12,3 +12,4 @@ GITHUB_REPO    = os.getenv("GITHUB_REPOS")
 GITHUB_BRANCH  = os.getenv("GITHUB_BRANCH")
 
 GEMINI_API_KEY  = os.getenv("GEMINI_API_KEY")
+WAVELINK_PASS   = os.getenv("WAVELINK_PASS")
