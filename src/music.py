@@ -43,10 +43,10 @@ class Music(commands.Cog):
 
         if not player.playing:
             await player.play(track)
-            await ctx.send(f"▶️ Now playing: **{track.title}**")
+            await ctx.send(f"▶ Now playing: **{track.title}**")
         else:
             queue.append(track)
-            await ctx.send(f"➕ Added to queue: **{track.title}**")
+            await ctx.send(f"+ Added to queue: **{track.title}**")
 
     @commands.command(name="pause")
     async def pause(self, ctx: commands.Context):
@@ -64,7 +64,7 @@ class Music(commands.Cog):
             return await ctx.send("Not connected.")
 
         await player.pause(False)
-        await ctx.send("▶️ Resumed.")
+        await ctx.send("▶ Resumed.")
 
     @commands.command(name="stop")
     async def stop(self, ctx: commands.Context):
@@ -74,7 +74,7 @@ class Music(commands.Cog):
             return await ctx.send("Not connected.")
 
         await player.stop()
-        await ctx.send("⏹️ Stopped playback.")
+        await ctx.send("⏹ Stopped playback.")
 
     @commands.command(name="skip")
     async def skip(self, ctx):
@@ -87,7 +87,7 @@ class Music(commands.Cog):
             return await ctx.send("Nothing is playing.")
 
         await player.stop()  # triggers next song from queue
-        await ctx.send("⏭️ Skipped.")
+        await ctx.send("⏭ Skipped.")
 
     @commands.command(name="leave")
     async def leave(self, ctx: commands.Context):
@@ -107,7 +107,7 @@ class Music(commands.Cog):
             await payload.player.play(next_track)
             channel = payload.player.channel
             text = channel.guild.text_channels[0]
-            await text.send(f"▶️ Now playing: **{next_track.title}**")
+            await text.send(f"▶ Now playing: **{next_track.title}**")
 
     @commands.command(name="queue")
     async def show_queue(self, ctx):
