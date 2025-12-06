@@ -37,6 +37,8 @@ personal discord bot
     - aiohttp 3.13.2
     - discord.py 2.6.4
     - dotenv 0.9.9
+    - google-genai 1.53.0
+    - wavelink==3.4.1
 
 # Installation
 ```bash
