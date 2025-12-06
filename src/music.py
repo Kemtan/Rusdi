@@ -118,5 +118,17 @@ class Music(commands.Cog):
         msg = "\n".join(f"{i+1}. {t.title}" for i, t in enumerate(queue))
         await ctx.send(f"📜 **Queue:**\n{msg}")
 
+    @commands.command(name="shuffle")
+    async def shuffle_queue(self, ctx):
+        queue = self.queues.get(ctx.guild.id, [])
+
+        if not queue:
+            return await ctx.send("Queue is empty.")
+
+        import random
+        random.shuffle(queue)
+
+        await ctx.send("🔀 Queue shuffled.")
+
 async def setup(bot: commands.Bot):
     await bot.add_cog(Music(bot))
