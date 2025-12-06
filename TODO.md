@@ -28,6 +28,7 @@
 - [x] implement jomok personality when tagging @Rusdi in a server via gemini api
 - [ ] todo note
 - [x] play music
+  - [ ] support playlist to queue
 - [ ] store/find doksli
 - [x] run bot 24/7 in server
   - [x] setup tailscale
