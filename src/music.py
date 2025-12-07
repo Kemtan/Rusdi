@@ -151,7 +151,7 @@ class Music(commands.Cog):
             return await ctx.send("Nothing is playing.")
 
         track = player.current
-        await ctx.send(f"🎵 **Now playing:** {track.title}")
+        await ctx.send(f"**Now playing:** {track.title}")
 
     @commands.command(name="shuffle")
     async def shuffle_queue(self, ctx: commands.Context):
@@ -162,7 +162,7 @@ class Music(commands.Cog):
             return await ctx.send("Queue is empty.")
 
         random.shuffle(queue)
-        await ctx.send("🔀 Queue shuffled.")
+        await ctx.send("Queue shuffled.")
 
     @commands.command(name="remove")
     async def remove_track(self, ctx: commands.Context, index: int):
