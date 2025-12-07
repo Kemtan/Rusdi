@@ -101,7 +101,7 @@ class Music(commands.Cog):
 
     @commands.command(name="leave")
     async def leave(self, ctx: commands.Context):
-        """"Leave the voice channel."""
+        """Leave the voice channel."""
         if ctx.voice_client:
             await ctx.voice_client.disconnect()
             await ctx.send("👋 Left the voice channel.")
