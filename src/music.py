@@ -151,7 +151,7 @@ class Music(commands.Cog):
             return await ctx.send("Nothing is playing.")
 
         track = player.current
-        await ctx.send(f"**Now playing:** {track.title}")
+        await ctx.send(f"▶ Now playing: **{track.title}**")
 
     @commands.command(name="shuffle")
     async def shuffle_queue(self, ctx: commands.Context):
