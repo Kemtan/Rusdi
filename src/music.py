@@ -67,7 +67,7 @@ class Music(commands.Cog):
 
     @commands.command(name="resume")
     async def resume(self, ctx: commands.Context):
-        """"Resume playback."""
+        """Resume playback."""
         player: wavelink.Player = ctx.voice_client  # type: ignore
         if not player:
             return await ctx.send("Not connected.")
@@ -87,7 +87,7 @@ class Music(commands.Cog):
 
     @commands.command(name="skip")
     async def skip(self, ctx: commands.Context):
-        """"Skip the current song."""
+        """Skip the current song."""
         player: wavelink.Player = ctx.voice_client
 
         if not player or not isinstance(player, wavelink.Player):
@@ -131,7 +131,7 @@ class Music(commands.Cog):
 
     @commands.command(name="queue")
     async def show_queue(self, ctx: commands.Context):
-        """"Show the current queue."""
+        """Show the current queue."""
         queue = self.queues.get(ctx.guild.id, [])
         if not queue:
             return await ctx.send("Queue is empty.")
