@@ -139,6 +139,20 @@ class Music(commands.Cog):
         msg = "\n".join(f"{i+1}. {t.title}" for i, t in enumerate(queue))
         await ctx.send(f"📜 **Queue:**\n{msg}")
 
+    @commands.command(name="nowplaying", aliases=["np"])
+    async def nowplaying(self, ctx: commands.Context):
+        """Show the currently playing song."""
+        player: wavelink.Player = ctx.voice_client
+
+        if not player or not isinstance(player, wavelink.Player):
+            return await ctx.send("Not connected.")
+
+        if not player.current:
+            return await ctx.send("Nothing is playing.")
+
+        track = player.current
+        await ctx.send(f"🎵 **Now playing:** {track.title}")
+
     @commands.command(name="shuffle")
     async def shuffle_queue(self, ctx: commands.Context):
         """Shuffle the queue."""
