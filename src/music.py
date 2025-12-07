@@ -57,6 +57,7 @@ class Music(commands.Cog):
 
     @commands.command(name="pause")
     async def pause(self, ctx: commands.Context):
+        """Pause the current song."""
         player: wavelink.Player = ctx.voice_client  # type: ignore
         if not player:
             return await ctx.send("Not connected.")
@@ -66,6 +67,7 @@ class Music(commands.Cog):
 
     @commands.command(name="resume")
     async def resume(self, ctx: commands.Context):
+        """"Resume playback."""
         player: wavelink.Player = ctx.voice_client  # type: ignore
         if not player:
             return await ctx.send("Not connected.")
@@ -85,6 +87,7 @@ class Music(commands.Cog):
 
     @commands.command(name="skip")
     async def skip(self, ctx: commands.Context):
+        """"Skip the current song."""
         player: wavelink.Player = ctx.voice_client
 
         if not player or not isinstance(player, wavelink.Player):
@@ -98,6 +101,7 @@ class Music(commands.Cog):
 
     @commands.command(name="leave")
     async def leave(self, ctx: commands.Context):
+        """"Leave the voice channel."""
         if ctx.voice_client:
             await ctx.voice_client.disconnect()
             await ctx.send("👋 Left the voice channel.")
@@ -127,6 +131,7 @@ class Music(commands.Cog):
 
     @commands.command(name="queue")
     async def show_queue(self, ctx: commands.Context):
+        """"Show the current queue."""
         queue = self.queues.get(ctx.guild.id, [])
         if not queue:
             return await ctx.send("Queue is empty.")
@@ -136,6 +141,7 @@ class Music(commands.Cog):
 
     @commands.command(name="shuffle")
     async def shuffle_queue(self, ctx: commands.Context):
+        """Shuffle the queue."""
         queue = self.queues.get(ctx.guild.id, [])
 
         if not queue:
@@ -146,6 +152,7 @@ class Music(commands.Cog):
 
     @commands.command(name="remove")
     async def remove_track(self, ctx: commands.Context, index: int):
+        """Remove a song from the queue."""
         queue = self.queues.get(ctx.guild.id, [])
 
         if not queue:
