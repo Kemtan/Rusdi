@@ -98,15 +98,19 @@ class Music(commands.Cog):
         await player.pause(False)
         await ctx.send("▶ Resumed.")
 
-    @commands.command(name="stop")
+    @commands.command(name="stop", aliases=["clear"])
     async def stop(self, ctx: commands.Context):
-        """Stop playback and clear the player."""
+        """Stop playback and clear the queue."""
         player: wavelink.Player = ctx.voice_client  # type: ignore
         if not player:
             return await ctx.send("Not connected.")
 
+        # clear queue
+        self.queues[ctx.guild.id] = []
+
+        # stop the player
         await player.stop()
-        await ctx.send("⏹ Stopped playback.")
+        await ctx.send("⏹ Stopped and cleared the queue.")
 
     @commands.command(name="skip")
     async def skip(self, ctx: commands.Context):
