@@ -32,7 +32,7 @@ class Music(commands.Cog):
 
     @commands.command(name="play")
     async def play(self, ctx: commands.Context, *, query: str):
-        """Play a song from a query or URL."""
+        """Play a song or playlist from a query or URL."""
         player = await self._get_player(ctx)
 
         # remember where to talk for this guild
@@ -43,10 +43,32 @@ class Music(commands.Cog):
         if not tracks:
             return await ctx.send("No results found.")
 
-        track = tracks[0]
-
         # init queue for this guild
         queue = self.queues.setdefault(ctx.guild.id, [])
+
+        # If this is a playlist (Wavelink v3)
+        if isinstance(tracks, wavelink.Playlist):
+            playlist: wavelink.Playlist = tracks
+            added = 0
+
+            for track in playlist.tracks:
+                # if nothing is playing and queue is empty -> start immediately
+                if not player.playing and not queue and added == 0:
+                    await player.play(track)
+                    await ctx.send(
+                        f"▶ Now playing: **{track.title}** "
+                        f"(from playlist **{playlist.name}**)"
+                    )
+                else:
+                    queue.append(track)
+                added += 1
+
+            return await ctx.send(
+                f"➕ Added playlist **{playlist.name}** ({added} tracks) to the queue."
+            )
+
+        # Otherwise it's a normal search result (list of tracks)
+        track: wavelink.Playable = tracks[0]
 
         if not player.playing:
             await player.play(track)
@@ -54,6 +76,7 @@ class Music(commands.Cog):
         else:
             queue.append(track)
             await ctx.send(f"+ Added to queue: **{track.title}**")
+
 
     @commands.command(name="pause")
     async def pause(self, ctx: commands.Context):
