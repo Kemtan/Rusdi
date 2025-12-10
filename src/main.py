@@ -1,10 +1,11 @@
-from discord.ext import commands
+from discord.ext import commands, tasks
 import discord
 import github
 import config
 import utils
 import jomok
 import wavelink
+import reddit
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -28,6 +29,34 @@ async def ghevents(ctx, username: str | None = None):
 
     for ev in events:
         await ctx.send(ev["text"])
+
+# --- Reddit background loop ---
+@tasks.loop(seconds=60)
+async def reddit_loop():
+    channel = getattr(bot, "reddit_channel", None)
+    if channel is None:
+        print("[reddit_loop] reddit_channel is None")
+        return
+
+    new_posts = reddit.check_new_posts(
+        config.REDDIT_SUBREDDIT,
+        config.REDDIT_USERNAME,
+        limit=10,
+    )
+
+    print(f"[reddit_loop] got {len(new_posts)} new posts")
+
+    for p in new_posts:
+        msg = (
+            f"New post by **u/{p['author']}** in r/{config.REDDIT_SUBREDDIT}\n"
+            f"{p['url']}"
+        )
+
+        await channel.send(msg)
+
+@reddit_loop.before_loop
+async def before_reddit_loop():
+    await bot.wait_until_ready()
 
 @bot.event
 async def on_ready():
@@ -60,6 +89,17 @@ async def setup_hook():
 
     await wavelink.Pool.connect(nodes=nodes, client=bot)
     await bot.load_extension("music")
+
+    # fetch reddit channel
+    try:
+        bot.reddit_channel = await bot.fetch_channel(config.REDDIT_CHANNEL_ID)
+    except Exception as e:
+        print("[reddit_loop] cannot fetch channel:", e)
+        bot.reddit_channel = None
+
+    # start background task
+    if not reddit_loop.is_running():
+        reddit_loop.start()
 
 @bot.event
 async def on_socket_response(msg):
