@@ -45,7 +45,8 @@ async def reddit_loop():
             limit=1,
         )
 
-        print(f"[reddit_loop] {username}: {len(new_posts)} new posts")
+        if new_posts:  
+            print(f"[reddit_loop] {username}: {len(new_posts)} new posts")
 
         for p in new_posts:
             msg = (
