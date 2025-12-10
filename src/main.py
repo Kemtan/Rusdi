@@ -38,21 +38,21 @@ async def reddit_loop():
         print("[reddit_loop] reddit_channel is None")
         return
 
-    new_posts = reddit.check_new_posts(
-        config.REDDIT_SUBREDDIT,
-        config.REDDIT_USERNAME,
-        limit=10,
-    )
-
-    print(f"[reddit_loop] got {len(new_posts)} new posts")
-
-    for p in new_posts:
-        msg = (
-            f"New post by **u/{p['author']}** in r/{config.REDDIT_SUBREDDIT}\n"
-            f"{p['url']}"
+    for username in config.REDDIT_USERNAMES:
+        new_posts = reddit.check_new_posts(
+            config.REDDIT_SUBREDDIT,
+            username,
+            limit=1,
         )
 
-        await channel.send(msg)
+        print(f"[reddit_loop] {username}: {len(new_posts)} new posts")
+
+        for p in new_posts:
+            msg = (
+                f"New post by **u/{p['author']}** in r/{config.REDDIT_SUBREDDIT}\n"
+                f"{p['url']}"
+            )
+            await channel.send(msg)
 
 @reddit_loop.before_loop
 async def before_reddit_loop():
