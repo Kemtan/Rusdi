@@ -24,11 +24,12 @@
     - [ ] Run every 3 hours
     - [x] fix events printing old events instead of latest one
   - [ ] !repo [user] cmd for listing user repo by hitting /users/{user}/repos
-- [ ] reddit post sender 
+- [x] reddit post sender 
 - [x] implement jomok personality when tagging @Rusdi in a server via gemini api
 - [ ] todo note
+- [ ] pin message to always show the message in latest chat
 - [x] play music
-  - [ ] support playlist to queue
+  - [x] support playlist to queue
 - [ ] store/find doksli
 - [x] run bot 24/7 in server
   - [x] setup tailscale
