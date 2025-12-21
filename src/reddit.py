@@ -1,5 +1,6 @@
-import sqlite3
+import sqlite3, json
 from urllib.parse import urljoin
+from pathlib import Path
 
 import requests
 from requests_doh import DNSOverHTTPSAdapter
@@ -7,6 +8,7 @@ from bs4 import BeautifulSoup
 
 DB_PATH = "reddit.db"
 BASE = "https://www.reddit.com"
+COOKIE_PATH = (Path(__file__).parent.parent / "cookies.json").resolve()
 
 HEADERS = {
     "User-Agent": (
@@ -20,6 +22,40 @@ HEADERS = {
 session = requests.Session()
 session.mount("https://", DNSOverHTTPSAdapter())
 session.mount("http://", DNSOverHTTPSAdapter())
+
+# Cookies (optional, into headers)
+if COOKIE_PATH.exists():
+    with open(COOKIE_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    cookie_pairs = []
+
+    # Playwright storage_state style: {"cookies":[...], "origins":[...]}
+    if isinstance(data, dict) and isinstance(data.get("cookies"), list):
+        for c in data["cookies"]:
+            if isinstance(c, dict) and "name" in c and "value" in c:
+                cookie_pairs.append(f"{c['name']}={c['value']}")
+
+    # Simple mapping: {"name":"value", ...}
+    elif isinstance(data, dict):
+        for k, v in data.items():
+            cookie_pairs.append(f"{k}={v}")
+
+    # List style: [{"name":"..","value":".."}, ...]  OR  ["a=b", "c=d"]
+    elif isinstance(data, list):
+        for c in data:
+            if isinstance(c, dict) and "name" in c and "value" in c:
+                cookie_pairs.append(f"{c['name']}={c['value']}")
+            elif isinstance(c, str) and "=" in c:
+                cookie_pairs.append(c)
+
+    if cookie_pairs:
+        HEADERS["Cookie"] = "; ".join(cookie_pairs)
+        print("cookies loaded into headers")
+    else:
+        print("cookies file found, but format not recognized / empty")
+else:
+    print("no cookies, running anonymous")
 
 # DB
 conn = sqlite3.connect(DB_PATH)
