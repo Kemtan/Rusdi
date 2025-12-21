@@ -16,7 +16,7 @@
     - [x] fix events printing old events instead of latest one
   - [ ] !repo [user] cmd for listing user repo by hitting /users/{user}/repos
 - [x] reddit post sender 
-  - [ ] token auth header for private subreddit
+  - [x] token auth header for private subreddit
 - [x] implement jomok personality when tagging @Rusdi in a server via gemini api
 - [ ] todo note
 - [ ] pin message to always show the message in latest chat
