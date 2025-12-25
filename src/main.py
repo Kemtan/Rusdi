@@ -39,6 +39,7 @@ async def reddit_loop():
         return
 
     for username in config.REDDIT_USERNAMES:
+        # posts
         new_posts = reddit.check_new_posts(
             config.REDDIT_SUBREDDIT,
             username,
@@ -52,6 +53,25 @@ async def reddit_loop():
             msg = (
                 f"New post by **u/{p['author']}** in r/{config.REDDIT_SUBREDDIT}\n"
                 f"{p['url']}"
+            )
+            await channel.send(msg)
+
+        # comments
+        print(f"[reddit_loop] polling comments for {username}")
+        new_comments = reddit.check_new_comments(
+            config.REDDIT_SUBREDDIT,
+            username,
+            limit=1,
+        )
+
+        if new_comments:
+            print(f"[reddit_loop] {username}: {len(new_comments)} new comments")
+
+        for c in new_comments:
+            msg = (
+                f"New comment by **u/{c['author']}** in r/{config.REDDIT_SUBREDDIT}\n"
+                f"{c['url']}\n\n"
+                f"{c['body']}"
             )
             await channel.send(msg)
 
