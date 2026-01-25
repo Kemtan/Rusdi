@@ -46,34 +46,35 @@ async def reddit_loop():
             limit=1,
         )
 
-        if new_posts:  
-            print(f"[reddit_loop] {username}: {len(new_posts)} new posts")
-
         for p in new_posts:
-            msg = (
-                f"New post by **u/{p['author']}** in r/{config.REDDIT_SUBREDDIT}\n"
-                f"{p['url']}"
+            embed = discord.Embed(
+                title=p["title"],
+                description=f"by u/{p['author']} in r/{config.REDDIT_SUBREDDIT}",
+                url=p["url"],
+                color=discord.Color.blue(),
             )
-            await channel.send(msg)
+            await channel.send(embed=embed)
 
         # comments
-        print(f"[reddit_loop] polling comments for {username}")
         new_comments = reddit.check_new_comments(
             config.REDDIT_SUBREDDIT,
             username,
             limit=1,
         )
 
-        if new_comments:
-            print(f"[reddit_loop] {username}: {len(new_comments)} new comments")
-
         for c in new_comments:
-            msg = (
-                f"New comment by **u/{c['author']}** in r/{config.REDDIT_SUBREDDIT}\n"
-                f"{c['url']}\n\n"
-                f"{c['body']}"
+            embed = discord.Embed(
+                title="New Reddit Comment",
+                description=f"by u/{c['author']} in r/{config.REDDIT_SUBREDDIT}",
+                url=c["url"],
+                color=discord.Color.green(),
             )
-            await channel.send(msg)
+            embed.add_field(
+                name="Comment",
+                value=c["body"][:1024],
+                inline=False,
+            )
+            await channel.send(embed=embed)
 
 @reddit_loop.before_loop
 async def before_reddit_loop():
