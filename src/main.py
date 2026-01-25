@@ -53,6 +53,8 @@ async def reddit_loop():
                 url=p["url"],
                 color=discord.Color.blue(),
             )
+
+            embed.set_image(url=p["subredditImage"])
             await channel.send(embed=embed)
 
         # comments

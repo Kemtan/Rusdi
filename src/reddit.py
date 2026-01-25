@@ -127,6 +127,10 @@ def fetch_user_posts(subreddit: str, username: str, limit=10):
             if len(posts) >= limit:
                 break
 
+        bar = soup.select_one(".pdp-credit-bar span[class^='avatar']")
+        subimage = bar.find("img") if bar else None
+        posts.append({"subimage": subimage})
+
         next_btn = soup.find("a", rel="nofollow next")
         url = next_btn["href"] if next_btn else None
 
